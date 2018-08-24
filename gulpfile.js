@@ -103,5 +103,10 @@ gulp.task('watch',function(){
 });
 
 
-gulp.task('default', ['watch','server']);
+// gulp v4へのアップデートによる記述の違い
+// https://satoyan419.com/gulp-v4/
+// gulp.task('default', ['watch','server']);
+gulp.task('default', gulp.series( gulp.parallel('watch', 'server'), function(){
+    // タスクの記述
+}));
 
