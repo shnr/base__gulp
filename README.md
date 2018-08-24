@@ -3,7 +3,8 @@
 ## initialize
 
 ```
-$ git clone https://github.com/shnr/base__gulp.git
+
+$ git clone https://user_name@github.com/shnr/base__gulp.git
 $ cd base__gulp
 $ npm install
 ```
