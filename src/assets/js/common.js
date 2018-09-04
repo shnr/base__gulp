@@ -1,4 +1,3 @@
 (function() {
-  console.log('Hello!!');
-  console.log('hge');
+console.log('this is common.js')
 }());
