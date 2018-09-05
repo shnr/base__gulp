@@ -37,40 +37,50 @@ var DEST_DIR = './assets/';
 /*
  * html task
  */
-gulp.task('html', function () {
-  gulp.src([src.watch_html])
+function html() {
+  return gulp.src(src.watch_html)
     .pipe(browser.reload({stream:true}))
-});
+}
 
 
 
 /*
  * sass
  */
-gulp.task('sass',function(){
-      gulp.src([src.sass])
-      .pipe(plumber({
-        errorHandler: notify.onError('Error: <%= error.message %>')
-      }))
-      .pipe(sourcemaps.init())
-      .pipe(sass({outputStyle: 'compressed'}))
-      // .pipe(sass({outputStyle: 'expended'})) // 開発用
-      .pipe(autoprefixer())
-      // .pipe(sourcemaps.write()) // 開発用
-      .pipe(gulp.dest(dest.root + DEST_DIR + 'css/'))
-      .pipe(browser.reload({stream:true}))
-});
+function styles() {
+  return gulp.src(src.sass)
+    .pipe(plumber({
+      errorHandler: notify.onError('Error: <%= error.message %>')
+    }))
+    .pipe(sourcemaps.init())
+    .pipe(sass({outputStyle: 'compressed'}))
+    // .pipe(sass({outputStyle: 'expended'})) // 開発用
+    .pipe(autoprefixer())
+    .pipe(gulp.dest(dest.root + DEST_DIR + 'css/'))
+    .pipe(browser.reload({stream:true}))
+}
 
 
 
 /**
- * jsファイルをdestディレクトリに出力（コピー）します。
+ * js
  */
-gulp.task('js', function() {
-  return gulp.src(src.js, {base: src.root})
-  .pipe(gulp.dest(dest.root + 'js/'))
+function scripts() {
+  return gulp.src(src.js)
+  // .pipe(gulp.dest(dest.root + 'js/'))
   .pipe(browser.reload({stream: true}));
-});
+}
+
+
+
+/*
+ * You can use CommonJS `exports` module notation to declare tasks
+ */
+exports.html = html;
+exports.styles = styles;
+exports.scripts = scripts;
+
+
 
 
 /*
@@ -91,15 +101,9 @@ gulp.task("server", function() {
  * Watch
  */
 gulp.task('watch',function(){
-  gulp.watch(src.sass, function(event){
-    gulp.run('sass');
-  });
-  gulp.watch(src.watch_html, function(event){
-    gulp.run('html');
-  });
-  gulp.watch(src.js, function(event){
-    gulp.run('js');
-  });
+  gulp.watch(src.sass, styles);
+  gulp.watch(src.watch_html, html);
+  gulp.watch(src.js, scripts);
 });
 
 
