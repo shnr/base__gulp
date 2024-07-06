@@ -15,10 +15,10 @@ require('es6-promise').polyfill();
  * 開発用のディレクトリを指定します。
  */
 var src = {
-  'watch_html': 'src/**/*.html',
-  'js': 'src/**/*.js',
-  'css': 'src/**/*.css',
-  'sass': 'src/_sass/sass/**/*.scss'
+  'watch_html': ['**/*.html', '!node_modules/**/*'],
+  'js': ['**/*.js', '!node_modules/**/*'],
+  'css': ['**/*.css', '!node_modules/**/*'],
+  'sass': '_sass/scss/**/*.scss'
 };
 
 
@@ -26,8 +26,8 @@ var src = {
  * 出力するディレクトリを指定します。
  */
 var dest = {
-  'root': 'src/',
-  'html': 'src/'
+  'root': '',
+  'html': ''
 };
 
 
@@ -84,13 +84,13 @@ exports.scripts = scripts;
 
 
 /*
- * Run server 
+ * Run server
  */
 gulp.task("server", function() {
   browser({
     server: {
-      baseDir: dest.root,
-      index: "index.html"
+      baseDir: "./", // ここを修正
+        index: "index.html"
     }
   });
 });
